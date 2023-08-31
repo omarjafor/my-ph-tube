@@ -52,11 +52,8 @@ const displayVideoPosts = posts => {
         `;
     }
     posts.forEach(post => {
-        // console.log(post);
         const { title, authors, thumbnail, others } = post;
-        // console.log(authors);
         const { profile_name, profile_picture, verified} = authors[0];
-        // console.log(profile_name, profile_picture, verified);
         const { posted_date, views } = others;
         const hrs = Math.floor(posted_date / 3600);
         const extraSec = Math.floor(posted_date % 3600);
@@ -69,7 +66,7 @@ const displayVideoPosts = posts => {
                 <img src="${thumbnail}" alt="Thumbnail" class='h-[200px] w-[312px]'/>
             </figure>
             <div class='absolute bg-[#171717] rounded bottom-2 right-11'>
-                <h2 class="text-[10px] p-1 text-white">${hrs}hrs ${min}min ago</h2>
+                <h2 class="text-[10px] p-1 text-white">${hrs > 0 || min > 0 ? `${hrs}hrs ${min}min ago` : ''}</h2>
             </div>
         </div>
         <div class="card-body">
@@ -80,7 +77,7 @@ const displayVideoPosts = posts => {
                 <div class="ml-3">
                 <h2 class="card-title font-bold text-[#171717]">${title}</h2>
                 <p>${profile_name ? profile_name : 'No author'} ${verified ? '<img class="inline-block" src="./img/badge.svg" alt="">' : ''}</p>
-                <p>${views}</p>
+                <p>${views} views</p>
                 </div>
             </div>
             
