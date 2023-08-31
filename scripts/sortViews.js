@@ -15,12 +15,10 @@ function handleViews(views) {
 }
 
 const displayVideoSort = posts => {
-    const noContent = document.getElementById('no-content');
     const mostVisited = document.getElementById('most-visited');
     const displayContent = document.getElementById('display-content');
 
     loaddingSpinner(true);
-    noContent.innerHTML = ``;
     mostVisited.innerHTML = ``;
     displayContent.innerHTML = ``;
     if (posts.length === 0) {
