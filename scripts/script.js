@@ -65,7 +65,9 @@ const displayVideoPosts = posts => {
         postDiv.innerHTML = `
         <div class="card w-96 bg-base-100">
         <div class='relative'>
-            <figure width="312px" height="150px"><img src="${thumbnail}" alt="Thumbnail" class='h-[200px] w-[312px]'/></figure>
+            <figure width="312px" height="150px">
+                <img src="${thumbnail}" alt="Thumbnail" class='h-[200px] w-[312px]'/>
+            </figure>
             <div class='absolute bg-[#171717] rounded bottom-2 right-11'>
                 <h2 class="text-[10px] p-1 text-white">3hrs 56min ago</h2>
             </div>
