@@ -1,40 +1,20 @@
-const loadCategories = async () => {
-    try {
-        const res = await fetch('https://openapi.programming-hero.com/api/videos/categories');
-        const data = await res.json();
-        const videoCategory = data.data;
-        displayPostCategories(videoCategory);
-    } catch (err) {
-        console.log(err);
-    }
-}
-
-const displayPostCategories = (categories) => {
-    const displayCategories = document.getElementById('display-categories');
-    categories.forEach(categorie => {
-        const { category_id, category } = categorie;
-        const categoryli = document.createElement('li');
-        categoryli.classList.add('text-gray-500', 'rounded-xl', 'hover:text-[#5d5fef]', 'hover:font-bold');
-        categoryli.innerHTML = `
-            <a href="#" onclick="loadCategoriesDetails('${category_id}')" class="bg-[#25252533] text-[#252525B2] active:text-white active:bg-[#FF1F3D] rounded px-5 py-[10px] font-medium text-[18px]">${category}</a>
-        `;
-        displayCategories.appendChild(categoryli);
-    });
-}
-
-const loadCategoriesDetails = async (category_id) => {
+const loadSortByViews = async (category_id) => {
     try {
         const res = await fetch(`https://openapi.programming-hero.com/api/videos/category/${category_id}`);
         const data = await res.json();
         const videoPost = data.data;
         // console.log(videoPost);
-        displayVideoPosts(videoPost);
+        displayVideoSort(videoPost);
     } catch (err) {
         console.log(err);
     }
 }
 
-const displayVideoPosts = posts => {
+function handleViews(views) {
+    return parseFloat(views.replace('k', '')) * 1000;
+}
+
+const displayVideoSort = posts => {
     const noContent = document.getElementById('no-content');
     const mostVisited = document.getElementById('most-visited');
     const displayContent = document.getElementById('display-content');
@@ -53,11 +33,17 @@ const displayVideoPosts = posts => {
         </div>
         `;
     }
-    posts.forEach(post => {
+    console.log(posts);
+    const showMost = posts.sort((a, b) => {
+        const mostView = handleViews(a.others.views);
+        const lowView =  handleViews(b.others.views);
+        return lowView - mostView;
+    });
+    showMost.forEach(post => {
         // console.log(post);
         const { title, authors, thumbnail, others } = post;
         // console.log(authors);
-        const { profile_name, profile_picture, verified} = authors[0];
+        const { profile_name, profile_picture, verified } = authors[0];
         // console.log(profile_name, profile_picture, verified);
         const { posted_date, views } = others;
         const hrs = Math.floor(posted_date / 3600);
@@ -93,15 +79,3 @@ const displayVideoPosts = posts => {
     });
     loaddingSpinner(false);
 }
-
-const loaddingSpinner = isLoading => {
-    const loadingButton = document.getElementById('lodding-button');
-    if (isLoading) {
-        loadingButton.classList.remove('hidden');
-    } else {
-        loadingButton.classList.add('hidden');
-    }
-}
-
-loadCategories();
-loadCategoriesDetails(1000);
