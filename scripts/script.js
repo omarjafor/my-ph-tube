@@ -29,6 +29,7 @@ const loadCategoriesDetails = async (category_id) => {
         const videoPost = data.data;
         // console.log(videoPost);
         displayVideoPosts(videoPost);
+        loadSortByViews(category_id);
     } catch (err) {
         console.log(err);
     }

@@ -1,9 +1,14 @@
+const sortButton = document.getElementById('sortButton');
 const loadSortByViews = async (category_id) => {
     try {
         const res = await fetch(`https://openapi.programming-hero.com/api/videos/category/${category_id}`);
         const data = await res.json();
         const videoPost = data.data;
-        displayVideoSort(videoPost);
+        sortButton.addEventListener('click', async function(){
+            displayVideoSort(videoPost)
+            category_id = 0;
+        });
+        
     } catch (err) {
         console.log(err);
     }
@@ -30,7 +35,6 @@ const displayVideoSort = posts => {
         </div>
         `;
     }
-    console.log(posts);
     const showMost = posts.sort((a, b) => {
         const mostView = handleViews(a.others.views);
         const lowView =  handleViews(b.others.views);
