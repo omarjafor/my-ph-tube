@@ -55,7 +55,7 @@ const displayVideoSort = posts => {
                 <img src="${thumbnail}" alt="Thumbnail" class='h-[200px] w-[312px]'/>
             </figure>
             <div class='absolute bg-[#171717] rounded bottom-2 right-11'>
-                <h2 class="text-[10px] p-1 text-white">${hrs > 0 || min > 0 ? `${hrs}hrs ${min}min ago` : ''}</h2>
+                ${hrs > 0 || min > 0 ? `<h2 class="text-[10px] p-1 text-white">${hrs}hrs ${min}min ago</h2>` : ''}
             </div>
         </div>
         <div class="card-body">
